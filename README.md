@@ -28,3 +28,5 @@
 这个框架还配置好了Spring的单元测试，但是在测试中使用的applicationContext.xml无法读取jdbc.properties文件，于是我就另外写了一个applicationContext2.xml，在里面写死了jdbc的配置参数。
 
 框架刚起步，主要还是为了方便自己以后使用，有兴趣的一起来完善吧，
+
+这个框架可以跨域访问，方便前端后台脱离
