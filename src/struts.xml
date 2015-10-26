@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.devMode" value="true" />
+	<constant name="struts.multipart.maxSize" value="104857600" />
+
+	<package name="authPackage" namespace="/" extends="json-default">
+
+		<interceptors>
+
+			<interceptor name="tokenAuth" class="com.kirno.fliter.TokenAuth" />
+			<interceptor name="adminAuth" class="com.kirno.fliter.AdminAuth" />
+			<interceptor name="poxyAuth" class="com.kirno.fliter.PoxyAuth" />
+			<interceptor name="financeAuth" class="com.kirno.fliter.FinanceAuth" />
+			<interceptor name="shopAuth" class="com.kirno.fliter.ShopAuth" />
+			<interceptor name="customAuth" class="com.kirno.fliter.CustomAuth" />
+			
+			<interceptor name="noUpdateAuth" class="com.kirno.fliter.NoUpdateAuth" />
+			
+			
+			<interceptor-stack name="noUpdateAuthStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="json" />				
+				<interceptor-ref name="noUpdateAuth" />
+			</interceptor-stack>
+
+			<interceptor-stack name="authStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="json" />
+				<interceptor-ref name="tokenAuth" />
+			</interceptor-stack>
+			<!-- 管理员 -->
+			<interceptor-stack name="adminAuthStack">
+				<interceptor-ref name="authStack" />
+				<interceptor-ref name="adminAuth" />
+			</interceptor-stack>
+			<!-- 代理 -->
+			<interceptor-stack name="poxyAuthStack">
+				<interceptor-ref name="authStack" />
+				<interceptor-ref name="poxyAuth" />
+			</interceptor-stack>
+			<!-- 财务 -->
+			<interceptor-stack name="financeAuthStack">
+				<interceptor-ref name="authStack" />
+				<interceptor-ref name="financeAuth" />
+			</interceptor-stack>
+			<!-- 商家 -->
+			<interceptor-stack name="shopAuthStack">
+				<interceptor-ref name="authStack" />
+				<interceptor-ref name="shopAuth" />
+			</interceptor-stack>
+			<!-- 消费者 -->
+			<interceptor-stack name="customAuthStack">
+				<interceptor-ref name="authStack" />
+				<interceptor-ref name="customAuth" />
+			</interceptor-stack>
+			
+
+		</interceptors>
+
+	</package>
+</struts>
